@@ -325,7 +325,7 @@ namespace BirdRouter
         LinkedList<string> helplist = new LinkedList<string>();
         void initHelp()
         {
-            helplist.AddLast("Available Voice Comamands");
+            helplist.AddLast("Available Voice Commands");
             helplist.AddLast("   scroll down - scroll this list down one line");
             helplist.AddLast("   scroll up - scroll this list down one line");
             helplist.AddLast("   page down - scroll this list down one page");
