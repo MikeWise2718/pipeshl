@@ -9,8 +9,8 @@ using UnityEngine;
 
 namespace GraphAlgos
 {
-    public enum textureMethE { none,material, bitmap }
-    public enum textureGeomE { none,plane, mesh }
+    public enum textureMethE { none, material, bitmap }
+    public enum textureGeomE { none, plane, mesh }
     [Serializable]
     public class graphtex
     {
@@ -33,7 +33,7 @@ namespace GraphAlgos
             rotate = Vector3.zero;
             translate = Vector3.zero;
         }
-        public void SetMaterialPlane(string matname, int xpix, int ypix, Vector3 sca,Vector3 rot,Vector3 trn)
+        public void SetMaterialPlane(string matname, int xpix, int ypix, Vector3 sca, Vector3 rot, Vector3 trn)
         {
             // here we store the bitmap values for possible future reference, but we do not use them
             this.texMeth = textureMethE.material;
@@ -46,7 +46,7 @@ namespace GraphAlgos
             this.rotate = rot;
             this.translate = trn;
         }
-        public void SetMaterialPlane(string matname, int xpix, int ypix, Vector3 rot, Vector3 trn)
+        public void SetMaterialPlane(string matname, int xpix, int ypix, Vector3 rot, Vector3 trn, float scalefak = 1)
         {
             // here we calculate the scale factor from the aspect ratio
             this.texMeth = textureMethE.material;
@@ -55,8 +55,8 @@ namespace GraphAlgos
             this.bitmapXpix = xpix;
             this.bitmapYpix = ypix;
             this.aspectXoY = xpix * 1f / ypix;
-            var sca = new Vector3(10*aspectXoY, 1, 10);
-            this.scale = sca;
+            var sca = new Vector3(10 * aspectXoY, 1, 10);
+            this.scale = sca * scalefak;
             this.rotate = rot;
             this.translate = trn;
         }
@@ -211,14 +211,14 @@ namespace GraphAlgos
 
         public LcNode AddNode(string name, Vector3 v)
         {
-            name = gm.addprefix( name );
+            name = gm.addprefix(name);
             if (nodedict.ContainsKey(name))
             {
                 throw new UnityException("Duplicate Point name");
             }
             v = gm.modv(v);
             nodenamelist.Add(name);
-            var lpt = new LcNode(this,name, v);
+            var lpt = new LcNode(this, name, v);
             nodedict.Add(name, lpt);
             anchorpt = lpt;
             return (lpt);
@@ -245,27 +245,27 @@ namespace GraphAlgos
             }
             // otherwise we need to make it
             nodenamelist.Add(name);
-            var node = new LcNode(this,name, v);
+            var node = new LcNode(this, name, v);
             nodedict.Add(name, node);
             return (node);
         }
         public LcLink AddLink(string lname, LcNode lp1, LcNode lp2)
         {
-            lname = gm.addprefix( lname );
+            lname = gm.addprefix(lname);
             if (linkdict.ContainsKey(lname))
             {
                 throw new UnityException("AddLink: Duplicate Link name:" + lname);
             }
             linknamelist.Add(lname);
-            var lnk = new LcLink(this,lname, lp1, lp2);
+            var lnk = new LcLink(this, lname, lp1, lp2);
             linkdict.Add(lname, lnk);
             //lklistlist.Add(lnk);
             return (lnk);
         }
         public LcLink AddLinkByNodeName(string lp1name, string lp2name, string lname = "")
         {
-            lp1name = gm.addprefix( lp1name );
-            lp2name = gm.addprefix( lp2name );
+            lp1name = gm.addprefix(lp1name);
+            lp2name = gm.addprefix(lp2name);
             verifyNodeExists("AddLink", lp1name);
             verifyNodeExists("AddLink", lp2name);
             var lp1 = nodedict[lp1name];
@@ -284,7 +284,7 @@ namespace GraphAlgos
                 throw new UnityException("AddLinkByNodeName: Duplicate Link name:" + lname);
             }
             linknamelist.Add(lname);
-            var lnk = new LcLink(this,lname, lp1, lp2);
+            var lnk = new LcLink(this, lname, lp1, lp2);
             linkdict.Add(lname, lnk);
             //lklistlist.Add(lnk);
             return (lnk);
@@ -297,7 +297,7 @@ namespace GraphAlgos
             {
                 throw new UnityException("Anchorpt null");
             }
-            lptname = gm.addprefix( lptname );
+            lptname = gm.addprefix(lptname);
             v = gm.modv(v);
             var lp1 = GetNewNode(lptname, v);
             if (lname == "")
@@ -306,7 +306,7 @@ namespace GraphAlgos
             }
             else
             {
-                lname = gm.addprefix( lname );
+                lname = gm.addprefix(lname);
             }
             if (linkdict.ContainsKey(lname))
             {
@@ -314,7 +314,7 @@ namespace GraphAlgos
             }
             linknamelist.Add(lname);
 
-            var lnk = new LcLink(this,lname, lp0, lp1);
+            var lnk = new LcLink(this, lname, lp0, lp1);
             linkdict.Add(lname, lnk);
             //lklistlist.Add(lnk);
             anchorpt = lp1;
@@ -355,14 +355,14 @@ namespace GraphAlgos
         static int aclcount = 0;
         public void AddCrosLink(string lname, float x, float z, string lname1, string lname2)
         {
-            lname = gm.addprefix( lname);
-            lname1 = gm.addprefix(lname1 );
-            lname2 = gm.addprefix( lname2 );
+            lname = gm.addprefix(lname);
+            lname1 = gm.addprefix(lname1);
+            lname2 = gm.addprefix(lname2);
             var pt = new Vector3(x, yfloor, z);
             pt = gm.modv(pt);
             // find closest filtered link 1 and 2
             var lnk1 = FindClosestLinkOnLineCloudFiltered(lname1, pt);
-            if (lnk1==null)
+            if (lnk1 == null)
             {
                 lnk1 = FindClosestLinkOnLineCloudFiltered(lname1, pt);
                 throw new UnityException("AddCrossLink: Could not find filtered link for filter:" + lname1);
@@ -382,12 +382,30 @@ namespace GraphAlgos
             var newpname2 = gm.addprefix(lname + "-1");
             var lpt2 = PunchNewLinkPt(lnk2, pt2, newptname: newpname2, newlinkrootname: newlname2, deleteparentlink: true);
             //GraphUtil.Log("ACL pt:" + pt + " pt1:" + pt1 + " pt2:" + pt2);
-            AddLink(lname,lpt1, lpt2 );
+            AddLink(lname, lpt1, lpt2);
             aclcount += 1;
+        }
+        public void addSpurLink(string lname, float x, float z, string occupantnames = "")
+        {
+            GraphUtil.Log("Add Spur Link:" + lname);
+            var linknodename = "sp-" + lname;
+            var lpt1 = AddNodePtxy(linknodename, x, z);
+
+            var pt = new Vector3(x, yfloor, z);
+            pt = gm.modv(pt);
+            var filter = gm.addprefix("c");
+            var lnk = FindClosestLinkOnLineCloudFiltered(filter, pt, deb: false);
+            if (lnk == null)
+            {
+                throw new UnityException("AddRoomLink: Could not find filtered link for filter:" + filter);
+            }
+            var punchpoint = lnk.FindClosestPointOnLink(pt);
+            var lpt2 = PunchNewLinkPt(lnk, punchpoint, newptname: "cor" + lname, newlinkrootname: lnk.name, deleteparentlink: true);
+            AddLink("c" + linknodename, lpt1, lpt2);
         }
         public void addRoomLink(string roomnumber, float x, float z, string occupantnames = "")
         {
-            GraphUtil.Log("Add Room Link:" + roomnumber);
+            //GraphUtil.Log("Add Room Link:" + roomnumber);
             var rmname = "rm" + roomnumber;
             var lpt1 = AddNodePtxy(rmname, x, z);
 
@@ -440,29 +458,29 @@ namespace GraphAlgos
         {
             return (nodedict.ContainsKey(pname));
         }
-        public StatusMsg ChangeNodeName(string oldnodename,string newnodename)
+        public StatusMsg ChangeNodeName(string oldnodename, string newnodename)
         {
-            if (!isnodename(oldnodename)) return new StatusMsg(false,"Old nodename "+oldnodename+" does not exist");
-            if (isnodename(newnodename)) return new StatusMsg(false,"New nodename "+newnodename+"exists already");
+            if (!isnodename(oldnodename)) return new StatusMsg(false, "Old nodename " + oldnodename + " does not exist");
+            if (isnodename(newnodename)) return new StatusMsg(false, "New nodename " + newnodename + "exists already");
             var node = nodedict[oldnodename];
             node.name = newnodename;
             nodedict.Remove(oldnodename);
             nodedict[newnodename] = node;
             nodenamelist.Remove(oldnodename);
             nodenamelist.Add(newnodename);
-            return new StatusMsg(true,"changed name from "+oldnodename+" to "+newnodename);
+            return new StatusMsg(true, "changed name from " + oldnodename + " to " + newnodename);
         }
         public StatusMsg ChangeLinkName(string oldlinkname, string newlinkname)
         {
-            if (!islinkname(oldlinkname)) return new StatusMsg(false,"Old nodename "+oldlinkname+" does not exist");
-            if (islinkname(newlinkname)) return new StatusMsg(false,"New nodename "+newlinkname+"exists already");
+            if (!islinkname(oldlinkname)) return new StatusMsg(false, "Old nodename " + oldlinkname + " does not exist");
+            if (islinkname(newlinkname)) return new StatusMsg(false, "New nodename " + newlinkname + "exists already");
             var link = linkdict[oldlinkname];
             link.name = newlinkname;
             linkdict.Remove(oldlinkname);
             linkdict[newlinkname] = link;
             linknamelist.Remove(oldlinkname);
             linknamelist.Add(newlinkname);
-            return new StatusMsg(true,"changed name from "+ oldlinkname + " to "+ newlinkname);
+            return new StatusMsg(true, "changed name from " + oldlinkname + " to " + newlinkname);
         }
         #region linkcloud editing
         static int newnodecount = 0;
@@ -517,7 +535,7 @@ namespace GraphAlgos
         public bool checkForLinkptMovement()
         {
             int nmoved = 0;
-            foreach( var lptname in nodenamelist )
+            foreach (var lptname in nodenamelist)
             {
                 var lpt = GetNode(lptname);
                 if (lpt.wasMoved())
@@ -526,7 +544,7 @@ namespace GraphAlgos
                 }
             }
             //GraphUtil.Log("nmoved:" + nmoved);
-            return nmoved!=0;
+            return nmoved != 0;
         }
         public void finishStretchMovement(string lptname)
         {
@@ -539,7 +557,8 @@ namespace GraphAlgos
                 var newlpt = GetNewNode(newname, node.go.transform.position);
                 var newlinkname = genuniquelinkname();
                 AddLink(newlinkname, node, newlpt);
-            } else
+            }
+            else
             {
                 var newlinkname = genuniquelinkname();
                 AddLink(newlinkname, node, closeest);
@@ -580,7 +599,7 @@ namespace GraphAlgos
             var lnk = linkdict[lname];
             var npt = (lnk.node1.pt + lnk.node2.pt) * 0.5f;
             var nnodename = genuniquenodename();
-            PunchNewLinkPt(lnk, npt, newptname: nnodename, newlinkrootname:lnk.name, deleteparentlink: true, alwayspunch: true);
+            PunchNewLinkPt(lnk, npt, newptname: nnodename, newlinkrootname: lnk.name, deleteparentlink: true, alwayspunch: true);
         }
         public void StartStretchNode(string lptname)
         {

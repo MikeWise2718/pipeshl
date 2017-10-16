@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using GraphAlgos;
 
 /// <summary>
@@ -10,6 +12,7 @@ using GraphAlgos;
 /// 
 namespace BirdRouter
 {
+#if UNITY_EDITOR
     public class UniedMan : MonoBehaviour
     {
         // This class holds static methods that invoke RouteMan commands from the classic windows menu
@@ -742,4 +745,5 @@ namespace BirdRouter
             GUI.enabled = true;
         }
     }
+#endif
 }

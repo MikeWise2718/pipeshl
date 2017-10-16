@@ -215,7 +215,7 @@ namespace BirdRouter
                     }
                 case outModeE.trace:
                     {
-                        screensize = 16;
+                        screensize = 12;
                         tm.fontSize = 8;
                         tm.anchor = TextAnchor.UpperCenter;
                         tm.color = GraphUtil.getcolorbyname("forestgreen");

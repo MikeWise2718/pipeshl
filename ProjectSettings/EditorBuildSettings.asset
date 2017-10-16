@@ -5,6 +5,9 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/_scenes/mainscene.unity
     guid: cd7964db95e4a0341bf4a1e2169e1062
+  - enabled: 1
+    path: Assets/_scenes/hololensscene.unity
+    guid: aa25b44a01d82114498407f39f26e244

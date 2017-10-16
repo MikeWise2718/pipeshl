@@ -68,7 +68,6 @@ namespace BirdRouter
             keywords.Add("pause", () => { rman.PauseBird(); });
             keywords.Add("unpause", () => { rman.UnPauseBird(); });
             keywords.Add("resume", () => { rman.UnPauseBird(); });
-            keywords.Add("random room", () => { rman.SetRandomEndNode(); });
             keywords.Add("change", () => { rman.NextBirdForm(); });
             keywords.Add("higher", () => { rman.FlyBirdHigher(); });
             keywords.Add("lower", () => { rman.FlyBirdLower(); });
@@ -84,23 +83,20 @@ namespace BirdRouter
 
             keywords.Add("black balls", () => { rman.SetBallColor("black"); });
             keywords.Add("blue balls", () => { rman.SetBallColor("blue"); });
-            keywords.Add("steel blue balls", () => { rman.SetBallColor("steelblue"); });
             keywords.Add("black pipes", () => { rman.SetPipeColor("black"); });
             keywords.Add("yellow pipes", () => { rman.SetPipeColor("yellow"); });
-            keywords.Add("blue pipes", () => { rman.SetPipeColor("blue"); });
-            keywords.Add("steel blue pipes", () => { rman.SetPipeColor("steelblue"); });
+            keywords.Add("blue pipes", () => { rman.SetPipeColor("steelblue"); });
 
-            keywords.Add("next bird form", () => { rman.NextBirdForm(); });
-
+            
             keywords.Add("field of view 10", () => { rman.SetFov(10); });
-            keywords.Add("field of view 20", () => { rman.SetFov(20); });
-            keywords.Add("field of view 30", () => { rman.SetFov(30); });
-            keywords.Add("field of view 40", () => { rman.SetFov(30); });
-            keywords.Add("field of view 50", () => { rman.SetFov(30); });
-            keywords.Add("field of view 60", () => { rman.SetFov(60); });
-            keywords.Add("field of view 70", () => { rman.SetFov(60); });
-            keywords.Add("field of view 80", () => { rman.SetFov(60); });
-            keywords.Add("field of view 90", () => { rman.SetFov(90); });
+            //keywords.Add("field of view 20", () => { rman.SetFov(20); });
+            //keywords.Add("field of view 30", () => { rman.SetFov(30); });
+            //keywords.Add("field of view 40", () => { rman.SetFov(30); });
+            //keywords.Add("field of view 50", () => { rman.SetFov(30); });
+            //keywords.Add("field of view 60", () => { rman.SetFov(60); });
+            //keywords.Add("field of view 70", () => { rman.SetFov(60); });
+            //keywords.Add("field of view 80", () => { rman.SetFov(60); });
+            //keywords.Add("field of view 90", () => { rman.SetFov(90); });
 
             keywords.Add("grid on", () => { rman.GridOn(); });
             keywords.Add("grid off", () => { rman.GridOn(); });
@@ -135,16 +131,17 @@ namespace BirdRouter
 
             keywords.Add("shrink 10", () => { rman.Shrink10(); });
             keywords.Add("shrink 50", () => { rman.Shrink50(); });
-            keywords.Add("shrink 5", () => { rman.Shrink50(); });
-
+            
+            keywords.Add("gen b h o", () => { rman.GenBHO(); });
             keywords.Add("gen Redwest B 3", () => { rman.GenRedwb3(); });
             keywords.Add("gen Redwest Simple", () => { rman.GenRedwb3simple(); });
             keywords.Add("gen 43 1", () => { rman.Gen43_1(); });
             keywords.Add("gen 43 2", () => { rman.Gen431p2(); });
-            keywords.Add("john Redwest B 3", () => { rman.GenRedwb3(); });
-            keywords.Add("john Redwest Simple", () => { rman.GenRedwb3simple(); });
-            keywords.Add("John 43 1", () => { rman.Gen43_1(); });
-            keywords.Add("john 43 2", () => { rman.Gen431p2(); });
+            //keywords.Add("john b h o", () => { rman.GenBHO(); });
+            //keywords.Add("john Redwest B 3", () => { rman.GenRedwb3(); });
+            //keywords.Add("john Redwest Simple", () => { rman.GenRedwb3simple(); });
+            //keywords.Add("John 43 1", () => { rman.Gen43_1(); });
+            //keywords.Add("john 43 2", () => { rman.Gen431p2(); });
             keywords.Add("gen sphere", () => { rman.GenSphere(); });
 
             keywords.Add("garnish", () => { rman.NextGarnish(); });
@@ -189,7 +186,7 @@ namespace BirdRouter
             keywords.Add("more spatial detail", () => { rman.IncSpatialDetail(); });
             keywords.Add("less spatial detail", () => { rman.DecSpatialDetail(); });
 
-            keywords.Add("toggle move camera", () => { rman.ToggleMoveCamera(); });
+//            keywords.Add("toggle move camera", () => { rman.ToggleMoveCamera(); });
             keywords.Add("toggle drop error markers", () => { rman.ToggleDropErrorMarkers(); });
             keywords.Add("correct error markers", () => { rman.CorrectOnErrorMarkers(); });
             keywords.Add("start error marking", () => { rman.StartErrorMarking(); });

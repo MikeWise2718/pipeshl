@@ -6,8 +6,11 @@ using UnityEngine;
 
 namespace GraphAlgos
 {
-    public enum genmodeE { gen_none, gen_circ, gen_sphere, gen_b43_1, gen_b43_2, gen_b43_3, gen_b43_4, gen_b43_1p2,
-                           gen_bho, gen_small, gen_redwb_3_simple, gen_redwb_3, gen_json_file };
+    public enum genmodeE
+    {
+        gen_none, gen_circ, gen_sphere, gen_b43_1, gen_b43_2, gen_b43_3, gen_b43_4, gen_b43_1p2,
+        gen_bho, gen_small, gen_redwb_3_simple, gen_redwb_3, gen_json_file
+    };
 
     public class GenGlobeParameters
     {
@@ -60,21 +63,21 @@ namespace GraphAlgos
     {
         LinkCloud lc;
         MapGenParameters mgp = new MapGenParameters();
-        public MapMaker(LinkCloud lc,MapGenParameters mgp=null)
+        public MapMaker(LinkCloud lc, MapGenParameters mgp = null)
         {
-            if (mgp!=null)
+            if (mgp != null)
             {
                 this.mgp = mgp;
             }
             this.lc = lc;
         }
         static Dictionary<string, int> modelcount = new Dictionary<string, int>();
-        private string getmodelprefix(string modelprefix,bool forcecount=false)
+        private string getmodelprefix(string modelprefix, bool forcecount = false)
         {
             if (modelcount.ContainsKey(modelprefix))
             {
                 var ncount = modelcount[modelprefix]++;
-                return modelprefix +  (ncount + 1) + "-";
+                return modelprefix + (ncount + 1) + "-";
             }
             else
             {
@@ -89,7 +92,7 @@ namespace GraphAlgos
                 }
             }
         }
-        public int maxVoiceKeywords = 100;
+        public int maxVoiceKeywords = 70;
         public int nVoiceKeywords = 0;
         public void AddRedwB3rooms()
         {
@@ -381,7 +384,7 @@ namespace GraphAlgos
 
             float[] Fz = { 138.45f, 172.25f, 247.65f, 281.45f };
             float[] Fx = { 30.3f, 50.0f, 53.5f, 72.0f, 94.0f, 116.0f, 138.0f, 173.6f, 203.0f, 225.0f, 244.0f, 247.0f, 266.5f };
-            lc.gm.mod_name_pfx = getmodelprefix( "rwb-f03-" );
+            lc.gm.mod_name_pfx = getmodelprefix("rwb-f03-");
             lc.gm.mod_x_fak = 1 / 2.6f;
             lc.gm.mod_x_off = lc.gm.mod_x_fak * Fx[1];
             lc.gm.mod_z_fak = -1 / 2.6f;
@@ -433,7 +436,7 @@ namespace GraphAlgos
 
             AddRedwB3rooms();
 
-            var template = lc.gm.addprefix( "rm" );
+            var template = lc.gm.addprefix("rm");
             addVoiceKeywords(template);
             addRedwestB3names(template);
 
@@ -585,18 +588,17 @@ namespace GraphAlgos
                     // GraphUtil.Log("Key:" + key + "  Node:" + nname);
                 }
             }
-            // GraphUtil.Log("Added " + ntotadded + " voice keywords - wildones:" + nwildadded);
-            // GraphUtil.Log( "  wildtoadd:" + wildtoadd + "  maxVoiceKeywords:" + maxVoiceKeywords);
-
+            
             nVoiceKeywords = ntotadded;
-            // GraphUtil.Log("Added " + ntotadded + " voice keywords - wildones:" + nwildadded);
+            GraphUtil.Log("  wildtoadd:" + wildtoadd + "  maxVoiceKeywords:" + maxVoiceKeywords);
+            GraphUtil.Log("Added " + ntotadded + " voice keywords - wildones:" + nwildadded);
         }
         public void CreatePointsForB43RoomsFloor1()
         {
             lc.gm.initmods();
-            lc.gm.mod_x_fak =  0.9f;
+            lc.gm.mod_x_fak = 0.9f;
             lc.gm.mod_x_off = -59.4061f;
-            lc.gm.mod_z_fak =  0.9f;
+            lc.gm.mod_z_fak = 0.9f;
             lc.gm.mod_z_off = -22.2394f;
 
             lc.yfloor = 0;
@@ -614,32 +616,32 @@ namespace GraphAlgos
             lc.LinkTooPtxz("f01-wp-c10", -4.43, 33.22);
             lc.LinkTooPtxz("f01-wp-c11", -5.97, 33.22);
             lc.LinkTooPtxz("f01-wp-c12", -8.30, 33.22);
-            lc.LinkTooPtxz("f01-wp-c13", -8.63, 29.44 );
+            lc.LinkTooPtxz("f01-wp-c13", -8.63, 29.44);
             lc.LinkTooPtxz("f01-wp-c14", -11.91, 29.44);
             lc.LinkTooPtxz("f01-wp-c15", -11.91, 27.55);
-            lc.LinkTooPtxz("f01-wp-c16",  -9.04, 27.55);
+            lc.LinkTooPtxz("f01-wp-c16", -9.04, 27.55);
             lc.LinkToxz("f01-wp-c01", "f01-dt-rm1u17", 3.47, 6.29);
             lc.LinkToxz("f01-wp-c02", "f01-dt-rm1u18", 3.47, 8.47);
             lc.LinkToxz("f01-wp-c03", "f01-dt-rm1u19", 3.47, 10.53);
 
             lc.LinkToxz("f01-wp-c04", "f01-dt-rm1u21", -5.04, 14.15);
             lc.LinkToxz("f01-wp-c05", "f01-dt-rm1203", -4.31, 17.46);
-            lc.LinkToxz("f01-wp-c08", "f01-dt-rm1u30",  1.66, 29.68);
-            lc.LinkToxz("f01-wp-c09", "f01-dt-rm1u31",  0.60, 32.76 );
+            lc.LinkToxz("f01-wp-c08", "f01-dt-rm1u30", 1.66, 29.68);
+            lc.LinkToxz("f01-wp-c09", "f01-dt-rm1u31", 0.60, 32.76);
             lc.LinkToxz("f01-wp-c10", "f01-dt-rm1u33", -4.43, 30.35);
             lc.LinkToxz("f01-wp-c10", "f01-dt-rm1u32", -4.43, 36.44);
-            lc.LinkToxz("f01-wp-c11", "f01-dt-rm1u34", -5.97, 30.20 );
+            lc.LinkToxz("f01-wp-c11", "f01-dt-rm1u34", -5.97, 30.20);
             lc.LinkToxz("f01-wp-c16", "f01-dt-rm1012", -9.17, 25.03);
-            lc.LinkToxz("f01-wp-c15", "f01-dt-rm1013",-11.91, 24.49);
-            lc.LinkToxz("f01-wp-c15", "f01-dt-rm1u36",-14.97, 27.55);
+            lc.LinkToxz("f01-wp-c15", "f01-dt-rm1013", -11.91, 24.49);
+            lc.LinkToxz("f01-wp-c15", "f01-dt-rm1u36", -14.97, 27.55);
 
-            lc.LinkToxz("f01-wp-c03", "f01-wp-c20",-12.63, 10.84);
-            lc.LinkTooPtxz("f01-wp-c21",-12.63, 14.15);
+            lc.LinkToxz("f01-wp-c03", "f01-wp-c20", -12.63, 10.84);
+            lc.LinkTooPtxz("f01-wp-c21", -12.63, 14.15);
             lc.LinkTooPtxz("f01-wp-c22", -9.66, 14.15);
             lc.LinkTooPtxz("f01-wp-c23", -9.66, 17.74);
             lc.LinkTooPtxz("f01-wp-c24", -8.73, 21.73);
             lc.LinkTooPtxz("f01-wp-c25", -4.68, 21.73);
-            lc.LinkToxz("f01-wp-c23", "f01-dt-rm1015",-12.37, 18.27);
+            lc.LinkToxz("f01-wp-c23", "f01-dt-rm1015", -12.37, 18.27);
 
             lc.AddLinkByNodeName("f01-dt-rm1203", "f01-wp-c25");
             lc.AddLinkByNodeName("f01-dt-rm1012", "f01-wp-c24");
@@ -809,7 +811,7 @@ namespace GraphAlgos
         public void CreateCircPoints(int npoints = 10, float rad = 5.0f, float heit = 0)
         {
             lc.gm.initmods();
-            lc.gm.mod_name_pfx = getmodelprefix( "circ-", forcecount:true );
+            lc.gm.mod_name_pfx = getmodelprefix("circ-", forcecount: true);
             var ooname = "Node-0";
             var oname = "";
             for (int i = 0; i < npoints; i++)
@@ -837,12 +839,12 @@ namespace GraphAlgos
             var optar = new LcNode[nlng, nlat];
             for (int i = 0; i < nlat; i++)
             {
-                float alat = Mathf.PI * (90 - (i*180f/(nlat-1))) / 180;
+                float alat = Mathf.PI * (90 - (i * 180f / (nlat - 1))) / 180;
                 float y = rad * Mathf.Sin(alat) + heit;
                 float crad = rad * Mathf.Cos(alat);
                 for (int j = 0; j < nlng; j++)
                 {
-                    float alng = Mathf.PI * (j*360f/nlng) / 180;
+                    float alng = Mathf.PI * (j * 360f / nlng) / 180;
                     float z = crad * Mathf.Sin(alng);
                     float x = crad * Mathf.Cos(alng);
                     var pt = new Vector3(x, y, z);
@@ -865,6 +867,126 @@ namespace GraphAlgos
                     }
                 }
             }
+        }
+        public void AddRedwBhoRooms()
+        {
+            lc.addRoomLink("4092", 27.6f, -11.4f, "NA");
+            lc.addRoomLink("4093", 55.3f, -24.8f, "NA");
+            lc.addRoomLink("4094", 30.0f, 22.8f, "NA");
+            lc.addRoomLink("4095", 26.7f, 3.3f, "NA");
+
+            lc.addRoomLink("FrontDesk", 33.76f, -6.5f, "NA");
+            lc.addRoomLink("Elevator 1", 40.1f, -13.3f, "Elevator");
+            lc.addRoomLink("Elevator 2", 42.2f, -13.3f, "NA");
+            lc.addRoomLink("Stairs401", 38.0f, -10.0f, "NA");
+            lc.addRoomLink("Stairs402", 28.4f, -8.3f, "NA");
+            lc.addRoomLink("Stairs404", 36.0f, 24.3f, "NA");
+
+
+            lc.addRoomLink("4003", 32.0f, -14.0f, "NA");
+            lc.addRoomLink("4004", 32.0f, -15.6f, "NA");
+            lc.addRoomLink("4005", 34.0f, -25.2f, "NA");
+            lc.addRoomLink("4006", 40.2f, -28.7f, "NA");
+            lc.addRoomLink("4007", 46.6f, -32.1f, "NA");
+            lc.addRoomLink("4008", 50.6f, -32.7f, "NA");
+            lc.addRoomLink("4009", 50.1f, -25.6f, "NA");
+            lc.addRoomLink("4010", 48.3f, -23.7f, "NA");
+            lc.addRoomLink("4011", 53.8f, -21.1f, "NA");
+            lc.addRoomLink("4012", 49.2f, -22.4f, "NA");
+            lc.addRoomLink("4014", 54.0f, -16.6f, "NA");
+            lc.addRoomLink("4016", 54.1f, -9.9f, "NA");
+            lc.addRoomLink("4017", 47.1f, -9.9f, "NA");
+            lc.addRoomLink("4018", 50.7f, -7.3f, "NA");
+            lc.addRoomLink("4019", 55.0f, -0.1f, "NA");
+            lc.addRoomLink("4020", 50.4f, -2.1f, "NA");
+            lc.addRoomLink("4021", 47.8f, -2.1f, "NA");
+            lc.addRoomLink("4022", 43.6f, -4.0f, "NA");
+            lc.addRoomLink("4023", 39.3f, -2.2f, "NA");
+            lc.addRoomLink("4024", 37.7f, -2.2f, "NA");
+            lc.addRoomLink("4026", 35.2f, -2.0f, "Mens room");
+            lc.addRoomLink("4027", 33.2f, -2.0f, "NA");
+            lc.addRoomLink("4028", 31.2f, -1.5f, "Womens room");
+            lc.addRoomLink("4029", 28.2f, -6.0f, "NA");
+            lc.addRoomLink("4030", 28.2f, -4.0f, "NA");
+            lc.addRoomLink("4031", 37.4f, 3.5f, "NA");
+            lc.addRoomLink("4032", 40.6f, 1.6f, "NA");
+            lc.addRoomLink("4033", 43.7f, 1.7f, "NA");
+            lc.addRoomLink("4034", 41.9f, 4.4f, "NA");
+            lc.addRoomLink("4035", 45.7f, 4.4f, "NA");
+            lc.addRoomLink("4036", 48.0f, 1.1f, "NA");
+            lc.addRoomLink("4037", 51.3f, 1.1f, "NA");
+            lc.addRoomLink("4038", 51.3f, 5.2f, "NA");
+            lc.addRoomLink("4039", 49.6f, 6.5f, "NA");
+            lc.addRoomLink("4040", 49.6f, 10.6f, "NA");
+            lc.addRoomLink("4042", 53.9f, 13.3f, "NA");
+            lc.addRoomLink("4043", 49.6f, 12.0f, "NA");
+            lc.addRoomLink("4044", 48.0f, 15.0f, "NA");
+            lc.addRoomLink("4045", 47.4f, 17.2f, "NA");
+            lc.addRoomLink("4046", 55.0f, 23.7f, "NA");
+            lc.addRoomLink("4047", 50.9f, 22.2f, "Mens Room 2");
+            lc.addRoomLink("4048", 49.0f, 21.4f, "NA");
+            lc.addRoomLink("4049", 47.1f, 22.2f, "Womans Room 2");
+            lc.addRoomLink("4050", 44.6f, 21.4f, "NA");
+            lc.addRoomLink("4051", 41.1f, 21.4f, "NA");
+            lc.addRoomLink("4052", 43.2f, 18.8f, "NA");
+            lc.addRoomLink("4053", 39.0f, 18.8f, "NA");
+            lc.addRoomLink("4054", 38.0f, 21.4f, "NA");
+            lc.addRoomLink("4055", 35.0f, 21.4f, "NA");
+            lc.addRoomLink("4056", 33.1f, 25.8f, "NA");
+            lc.addRoomLink("4057", 33.7f, 28.4f, "NA");
+            lc.addRoomLink("4058", 41.6f, 25.3f, "NA");
+            lc.addRoomLink("4059", 47.0f, 25.7f, "NA");
+            lc.addRoomLink("4060", 51.3f, 25.7f, "NA");
+
+
+
+        }
+        public void CreatePointsForBho()
+        {
+            lc.gm.initmods();
+            lc.yfloor = 0;
+
+            float[] Fz = { -30.23f, -27.81f, -23.21f, -11.4f, -7.81f, -0.4f, 23.2f };
+            float[] Fx = { 30.0f, 33.9f, 35.0f, 48.5f, 52.3f };
+            lc.gm.mod_name_pfx = getmodelprefix("bho-f05-");
+            lc.AddNodePtxy("cv1-s", Fx[0], Fz[5]);
+            lc.LinkTooPtxz("cv1-e", Fx[0], Fz[4], lname: "cv1");
+            lc.LinkTooPtxz("cv1-d", Fx[2], Fz[3], lname: "cd1");
+            lc.LinkTooPtxz("cv2-e", Fx[2], Fz[2], lname: "cv2");
+            lc.LinkTooPtxz("ch1-e", Fx[3], Fz[0], lname: "ch1");
+            lc.LinkTooPtxz("cd2-3", Fx[4], Fz[1], lname: "cd2");
+            lc.LinkTooPtxz("cv3-e", Fx[4], Fz[3], lname: "cv3");
+            lc.LinkTooPtxz("cv4-e", Fx[4], Fz[5], lname: "cv4");
+            lc.LinkTooPtxz("cv5-e", Fx[4], Fz[6], lname: "cv5");
+            lc.LinkTooPtxz("ch4-e", Fx[1], Fz[6], lname: "ch4");
+
+            lc.AddLinkByNodeName("cv1-d", "cv3-e", "ch2");
+            lc.AddLinkByNodeName("cv1-s", "cv4-e", "ch3");
+
+            lc.addSpurLink("out92", 31.3f, -10.8f);
+            lc.addSpurLink("out93", 55.0f, -22.6f);
+            lc.addSpurLink("out91a", 36.8f, 2.7f);
+            lc.addSpurLink("out91b", 34.1f, 3.7f);
+            lc.addSpurLink("out91c", 30.1f, 3.7f);
+
+            lc.addSpurLink("4044", 48.4f, 16.0f);
+            lc.addSpurLink("4050", 43.2f, 21.4f);
+            lc.addSpurLink("4054", 39.0f, 21.4f);
+
+
+
+            AddRedwBhoRooms();
+
+            var template = lc.gm.addprefix("rm");
+            //addVoiceKeywords(template);
+            //addRedwestB3names(template);
+
+
+            //lc.addRoomLink("3268", 56.25f, 131.11f); // marcemerc
+            //lc.addRoomLink("3258", 48.78f, 131.11f); // brujo
+            //lc.addRoomLink("3256", 41.23f,131.26f);  // rimes
+            //lc.addRoomLink("3210", 130.82f, 209.86f);  // syros
+            //lc.addRoomLink("3170", 63.47f, 288.50f );  // rsiva
         }
         public void CreatePointsSmall()
         {
@@ -902,7 +1024,7 @@ namespace GraphAlgos
                         CreatePointsForB43RoomsFloor1();
                         var rot = new Vector3(0, -90, 0);
                         var trn = new Vector3(35.42f, 0, -8.72f);
-                        lc.floorMan.SetMaterialPlane("US-043-1",7266,3599, rot, trn);
+                        lc.floorMan.SetMaterialPlane("US-043-1", 7266, 3599, rot, trn);
                         break;
                     }
                 case genmodeE.gen_b43_2:
@@ -931,10 +1053,10 @@ namespace GraphAlgos
                     }
                 case genmodeE.gen_bho:
                     {
-                        CreatePointsSmall();
+                        CreatePointsForBho();
                         var rot = new Vector3(0, -90, 0);
                         var trn = new Vector3(35.42f, 0, -8.72f);
-                        lc.floorMan.SetMaterialPlane("DE-BHO-4", 7266, 4223, rot, trn);
+                        lc.floorMan.SetMaterialPlane("DE-BHO-4", 7266, 4223, rot, trn, scalefak: 1 / 2.086667f);
                         break;
                     }
                 case genmodeE.gen_b43_1p2:
@@ -956,7 +1078,7 @@ namespace GraphAlgos
                         var sca = new Vector3(10.294f, 1, 10.004f);
                         var rot = new Vector3(0, -90, 0);
                         var trn = new Vector3(35.42f, 0, -8.72f);
-                        lc.floorMan.SetMaterialPlane("US-RDB-3", 5255, 5099, sca,rot,trn);
+                        lc.floorMan.SetMaterialPlane("US-RDB-3", 5255, 5099, sca, rot, trn);
                         break;
                     }
                 case genmodeE.gen_small:
@@ -973,9 +1095,9 @@ namespace GraphAlgos
                     }
             }
             var fname = "c:/transfer/" + Genmode.ToString() + ".txt";
-            SaveToFile(lc,fname);
+            SaveToFile(lc, fname);
         }
-        public static void SaveToFile(LinkCloud lc,string fname)
+        public static void SaveToFile(LinkCloud lc, string fname)
         {
             var jsonlc = MapMaker.MakeJson(lc);
             JsonLinkCloud.WriteToFile(jsonlc, fname);
@@ -1005,7 +1127,7 @@ namespace GraphAlgos
             Debug.Log("MakeJson nnodes:" + nnodes + " nlinks:" + nlinks);
             return jsonlc;
         }
-        public static LinkCloud AddJsonToLinkCloud(JsonLinkCloud jsonlc,LinkCloud lc=null)
+        public static LinkCloud AddJsonToLinkCloud(JsonLinkCloud jsonlc, LinkCloud lc = null)
         {
             if (lc == null)
             {

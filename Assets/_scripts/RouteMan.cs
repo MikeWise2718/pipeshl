@@ -157,12 +157,20 @@ namespace BirdRouter
             {
                 smm.SetSpatialMapping(true);
             }
+            else
+            {
+                RouteMan.Log("smm is null");
+            }
         }
         public void DisableSpatialMapping()
         {
             if (smm != null)
             {
                 smm.SetSpatialMapping(false);
+            }
+            else
+            {
+                RouteMan.Log("smm is null");
             }
         }
         public void IncSpatialExtent()

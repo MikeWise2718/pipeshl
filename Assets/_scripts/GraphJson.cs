@@ -96,13 +96,15 @@ namespace GraphAlgos
                 var sw = new StreamWriter(fs);
                 sw.Write(jstring);
                 sw.Flush();
-                fs.Close();
+                fs.Dispose();
             }
         }
 
         public void WriteToConsole()
         {
+#if UNITY_EDITOR
             Console.WriteLine(JsonUtility.ToJson(this));
+#endif
         }
         public static JsonLinkCloud ReadFromFile(string fname)
         {
@@ -111,7 +113,7 @@ namespace GraphAlgos
             {
                 var sr = new StreamReader(fs);
                 jstring = sr.ReadToEnd();
-                fs.Close();
+                fs.Dispose();
             }
             var jlc = JsonUtility.FromJson<JsonLinkCloud>(jstring);
             return jlc;

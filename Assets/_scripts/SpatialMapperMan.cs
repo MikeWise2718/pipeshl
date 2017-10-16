@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.VR.WSA;
 
+using HoloToolkit;
+
 namespace BirdRouter
 {
     public class SpatialMapperMan : MonoBehaviour
@@ -17,7 +19,7 @@ namespace BirdRouter
         GameObject GetSpatialMapper()
         {
             if (smgo != null) return smgo;
-            smgo = GameObject.Find("Spatial Mapping");
+            smgo = GameObject.Find("SpatialMapping");
             if (smgo == null)
             {
                 RouteMan.Log("Could not find SpatialMapper GameObject");
@@ -31,11 +33,10 @@ namespace BirdRouter
         {
             var smgo = GetSpatialMapper();
             if (smgo == null) return;
-           // var sm = smgo.GetComponent<SpatialMapping>();
+            var smm = smgo.GetComponent<HoloToolkit.Unity.SpatialMapping.SpatialMappingManager>();
             RouteMan.Log("Found Spatial Mapping Component");
             Debug.Log("Found Spatial Mapping Component");
-          //  sm.MappingEnabled = onoff;
-          //  sm.DrawVisualMeshes = onoff;
+            smm.DrawVisualMeshes = onoff;
             RouteMan.Log("Spatial Mapping " + onoff);
             Debug.Log("Spatial Mapping " + onoff);
         }

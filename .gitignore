@@ -12,6 +12,9 @@
 /Assets/HoloToolkit/
 /Assets/HoloToolkit.meta
 
+/App[0-9]/
+/UWP/
+
 # Visual Studio 2015 cache directory
 /.vs/
 
