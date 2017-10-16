@@ -30,6 +30,7 @@ namespace BirdRouter
         public Vector3 nearestPointRef = new Vector3(5, 0, 5);
         public int maxVoiceKeywords = 100;
         public int nVoiceKeywords = 0;
+        public bool enableNodeEditing = false;
 
 
 
@@ -59,21 +60,23 @@ namespace BirdRouter
         {
             updateCount += 1;
             var lcld = getLinkCloud();
-            var moved = lcld.checkForLinkptMovement();
-            if (moved)
+            if (enableNodeEditing)
             {
-                if (nodeMoveMode == nodeMoveModeE.move)
+                var moved = lcld.checkForLinkptMovement();
+                if (moved)
                 {
-                    lcld.syncNodeMovement();
+                    if (nodeMoveMode == nodeMoveModeE.move)
+                    {
+                        lcld.syncNodeMovement();
+                    }
+                    needRefreshUpdateCount = updateCount;
                 }
-                needRefreshUpdateCount = updateCount;
+                if (needRefreshUpdateCount > 0 && ((updateCount - needRefreshUpdateCount) > 15))
+                {
+                    rman.RequestRefresh();
+                    needRefreshUpdateCount = 0;
+                }
             }
-            if (needRefreshUpdateCount>0 && ((updateCount-needRefreshUpdateCount)>15))
-            {
-                rman.RequestRefresh();
-                needRefreshUpdateCount = 0;
-            }
-
         }
 
         // LinkCloud Stuff
@@ -299,6 +302,7 @@ namespace BirdRouter
         public void RefreshGos()
         {
             linkNodeSize = rman.linknodescale * linkRadius;
+            //RouteMan.Log("lcc - RefreshGos");
             DeleteLinkCloudGos();
             CreateLinkCloudGos();
         }

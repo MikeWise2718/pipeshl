@@ -228,13 +228,29 @@ namespace BirdRouter
         {
             if (startnodename == "")
             {
-                var sp = rman.linkcloudctrl.GetLinkPt(0);
-                startnodename = sp.name;
+                LcNode snode = null; 
+                var prefstart = rman.linkcloudctrl.GetKeywordValue("DefStartNode");
+                snode = rman.linkcloudctrl.GetLinkPt(prefstart);
+                if (snode==null) snode = rman.linkcloudctrl.GetLinkPt(0);
+                if (snode == null)
+                {
+                    RouteMan.Log("Could not find start node in GenAstarPath");
+                    return;
+                }
+                startnodename = snode.name;
             }
             if (endnodename == "")
             {
-                var ep = rman.linkcloudctrl.GetLinkPt(-1); // last point
-                endnodename = ep.name;
+                LcNode enode = null;
+                var prefstart = rman.linkcloudctrl.GetKeywordValue("DefEndNode");
+                enode = rman.linkcloudctrl.GetLinkPt(prefstart);
+                if (enode == null) enode = rman.linkcloudctrl.GetLinkPt(-1); // lastpoint
+                if (enode == null)
+                {
+                    RouteMan.Log("Could not find end node in GenAstarPath");
+                    return;
+                }
+                endnodename = enode.name;
             }
             path = rman.linkcloudctrl.GenAstar(startnodename, endnodename);
             if (path == null)

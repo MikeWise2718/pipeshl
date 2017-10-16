@@ -670,81 +670,7 @@ namespace GraphAlgos
             lc.nodekeywords.Add("1u33", "f01-dt-rm1u33");
             lc.nodekeywords.Add("1u34", "f01-dt-rm1u34");
         }
-        //public void CreatePointsForB43RoomsFloor1()
-        //{
-        //    lc.gm.initmods();
-        //    lc.gm.mod_x_fak = 1.0f;
-        //    lc.gm.mod_y_fak = 1.0f;
-
-        //    lc.yfloor = 0;
-        //    lc.AddNodePtxy("f01-dt-st01", 0, 0);
-        //    lc.LinkTooPtxz("f01-wp-c01", 6.52, 0);
-
-        //    lc.LinkTooPtxz("f01-wp-c02", 8.74, 0);
-        //    lc.LinkTooPtxz("f01-wp-c03", 10.84, 0);
-        //    lc.LinkTooPtxz("f01-wp-c04", 14.34, 0);
-        //    lc.LinkTooPtxz("f01-wp-c05", 17.80, 0);
-        //    lc.LinkTooPtxz("f01-wp-c06", 21.53, -0.11);
-        //    lc.LinkTooPtxz("f01-wp-c07", 23.25, 1.92);
-        //    lc.LinkTooPtxz("f01-wp-c08", 29.15, 1.92);
-        //    lc.LinkTooPtxz("f01-wp-c09", 32.76, 1.92);
-        //    lc.LinkTooPtxz("f01-wp-c10", 33.22, 4.43);
-        //    lc.LinkTooPtxz("f01-wp-c11", 33.22, 5.97);
-        //    lc.LinkTooPtxz("f01-wp-c12", 33.22, 8.3);
-        //    lc.LinkTooPtxz("f01-wp-c13", 29.44, 8.63);
-        //    lc.LinkTooPtxz("f01-wp-c14", 29.44, 11.91);
-        //    lc.LinkTooPtxz("f01-wp-c15", 27.55, 11.91);
-        //    lc.LinkTooPtxz("f01-wp-c16", 27.55, 9.04);
-        //    lc.LinkToxz("f01-wp-c01", "f01-dt-rm1001", 6.29, -3.47);
-        //    lc.LinkToxz("f01-wp-c02", "f01-dt-rm1002", 8.47, -3.47);
-        //    lc.LinkToxz("f01-wp-c03", "f01-dt-rm1003", 10.53, -3.47);
-
-        //    lc.LinkToxz("f01-wp-c04", "f01-dt-k01", 14.15, 5.04);
-        //    lc.LinkToxz("f01-wp-c05", "f01-dt-rm1004", 17.46, 4.31);
-        //    lc.LinkToxz("f01-wp-c08", "f01-dt-rm1005", 29.68, -1.66);
-        //    lc.LinkToxz("f01-wp-c09", "f01-dt-rm1006", 32.76, -0.60);
-        //    lc.LinkToxz("f01-wp-c10", "f01-dt-rm1007", 30.35, 4.43);
-        //    lc.LinkToxz("f01-wp-c10", "f01-dt-rm1008", 36.44, 4.43);
-        //    lc.LinkToxz("f01-wp-c11", "f01-dt-rm1009", 30.20, 5.97);
-        //    lc.LinkToxz("f01-wp-c16", "f01-dt-rm1012", 25.03, 9.17);
-        //    lc.LinkToxz("f01-wp-c15", "f01-dt-rm1013", 24.49, 11.91);
-        //    lc.LinkToxz("f01-wp-c15", "f01-dt-rm1014", 27.55, 14.97);
-
-        //    lc.LinkToxz("f01-wp-c03", "f01-wp-c20", 10.84, 12.63);
-        //    lc.LinkTooPtxz("f01-wp-c21", 14.15, 12.63);
-        //    lc.LinkTooPtxz("f01-wp-c22", 14.15, 9.66);
-        //    lc.LinkTooPtxz("f01-wp-c23", 17.74, 9.66);
-        //    lc.LinkTooPtxz("f01-wp-c24", 21.73, 8.73);
-        //    lc.LinkTooPtxz("f01-wp-c25", 21.73, 4.68);
-        //    lc.LinkToxz("f01-wp-c23", "f01-dt-rm1015", 18.27, 12.37);
-
-        //    lc.AddLinkByNodeName("f01-dt-rm1004", "f01-wp-c25");
-        //    lc.AddLinkByNodeName("f01-dt-rm1012", "f01-wp-c24");
-
-        //    // now add the keywords for the keyword recognizer
-        //    string template = "f01-dt-rm";
-        //    foreach (var nname in lc.nodenamelist)
-        //    {
-        //        if (nname.StartsWith(template))
-        //        {
-        //            var key = "room " + nname.Remove(0, template.Length);
-        //            lc.nodekeywords.Add(key, nname);
-        //            // RouteMan.Log("Key:" + key + "  Node:" + nname);
-        //        }
-        //    }
-        //    lc.nodekeywords.Add("lobby 1", "f01-dt-st01");
-        //    lc.nodekeywords.Add("kitchen 1", "f01-dt-k01");
-        //    lc.nodekeywords.Add("1u17", "f01-dt-rm1001");
-        //    lc.nodekeywords.Add("1u18", "f01-dt-rm1002");
-        //    lc.nodekeywords.Add("1u19", "f01-dt-rm1003");
-        //    lc.nodekeywords.Add("1u21", "f01-dt-k01");
-        //    lc.nodekeywords.Add("1023", "f01-dt-rm1004");
-        //    lc.nodekeywords.Add("1u30", "f01-dt-rm1005");
-        //    lc.nodekeywords.Add("1u31", "f01-dt-rm1006");
-        //    lc.nodekeywords.Add("1u32", "f01-dt-rm1008");
-        //    lc.nodekeywords.Add("1u33", "f01-dt-rm1007");
-        //    lc.nodekeywords.Add("1u34", "f01-dt-rm1009");
-        //}
+       
         public void CreatePointsForB43RoomsFloor2()
         {
             lc.gm.initmods();
@@ -870,17 +796,17 @@ namespace GraphAlgos
         }
         public void AddRedwBhoRooms()
         {
+            lc.addRoomLink("FrontDesk", 33.76f, -6.5f, "NA");
+            lc.addRoomLink("Elev401", 40.1f, -13.3f, "Elevator");
+            lc.addRoomLink("Elev402", 42.2f, -13.3f, "NA");
+            lc.addRoomLink("Stairs401", 38.0f, -10.0f, "NA");
+            lc.addRoomLink("Stairs402", 28.4f, -8.3f, "NA");
+            lc.addRoomLink("Stairs404", 36.0f, 24.3f, "NA");
+
             lc.addRoomLink("4092", 27.6f, -11.4f, "NA");
             lc.addRoomLink("4093", 55.3f, -24.8f, "NA");
             lc.addRoomLink("4094", 30.0f, 22.8f, "NA");
             lc.addRoomLink("4095", 26.7f, 3.3f, "NA");
-
-            lc.addRoomLink("FrontDesk", 33.76f, -6.5f, "NA");
-            lc.addRoomLink("Elevator 1", 40.1f, -13.3f, "Elevator");
-            lc.addRoomLink("Elevator 2", 42.2f, -13.3f, "NA");
-            lc.addRoomLink("Stairs401", 38.0f, -10.0f, "NA");
-            lc.addRoomLink("Stairs402", 28.4f, -8.3f, "NA");
-            lc.addRoomLink("Stairs404", 36.0f, 24.3f, "NA");
 
 
             lc.addRoomLink("4003", 32.0f, -14.0f, "NA");
@@ -944,6 +870,11 @@ namespace GraphAlgos
         public void CreatePointsForBho()
         {
             lc.gm.initmods();
+            lc.gm.mod_x_fak = 1;
+            lc.gm.mod_x_off = 33.76f;
+            lc.gm.mod_z_fak = 1;
+            lc.gm.mod_z_off = -6.5f;
+
             lc.yfloor = 0;
 
             float[] Fz = { -30.23f, -27.81f, -23.21f, -11.4f, -7.81f, -0.4f, 23.2f };
@@ -980,6 +911,33 @@ namespace GraphAlgos
             var template = lc.gm.addprefix("rm");
             //addVoiceKeywords(template);
             //addRedwestB3names(template);
+            lc.nodekeywords.Add("Bill Gates", template + "4004");
+            lc.nodekeywords.Add("Gates", template + "4004");
+            lc.nodekeywords.Add("Grace Hopper", template + "4005");
+            lc.nodekeywords.Add("Hopper", template + "4005");
+            lc.nodekeywords.Add("Gordon Moore", template + "4006");
+            lc.nodekeywords.Add("Moore", template + "4006");
+            lc.nodekeywords.Add("Konrad Zuse", template + "4007");
+            lc.nodekeywords.Add("Zuse", template + "4007");
+            lc.nodekeywords.Add("Heinz Nixdorf", template + "4012");
+            lc.nodekeywords.Add("Nixdorf", template + "4007");
+            lc.nodekeywords.Add("Gottfried Leibnitz", template + "4014");
+            lc.nodekeywords.Add("Leibnitz", template + "4014");
+            lc.nodekeywords.Add("Paul Allen", template + "4016");
+            lc.nodekeywords.Add("Allen", template + "4016");
+
+            lc.nodekeywords.Add("Elevator", template + "Elev401");
+            lc.nodekeywords.Add("Mens Room", template + "4026");
+            lc.nodekeywords.Add("Womens Room", template + "4028");
+            lc.nodekeywords.Add("Mens Room 2", template + "4047");
+            lc.nodekeywords.Add("Womens Room 2", template + "4049");
+
+
+
+            lc.nodekeywords.Add("DefStartNode", template + "FrontDesk");
+            lc.nodekeywords.Add("DefEndNode", template + "4005");
+
+            addVoiceKeywords(template);
 
 
             //lc.addRoomLink("3268", 56.25f, 131.11f); // marcemerc
@@ -1055,7 +1013,8 @@ namespace GraphAlgos
                     {
                         CreatePointsForBho();
                         var rot = new Vector3(0, -90, 0);
-                        var trn = new Vector3(35.42f, 0, -8.72f);
+                        var trn = new Vector3(35.42f-lc.gm.mod_x_off, 0, -8.72f- lc.gm.mod_z_off);
+                        //var trn = new Vector3(lc.gm.mod_x_off, 0, lc.gm.mod_z_off);
                         lc.floorMan.SetMaterialPlane("DE-BHO-4", 7266, 4223, rot, trn, scalefak: 1 / 2.086667f);
                         break;
                     }
