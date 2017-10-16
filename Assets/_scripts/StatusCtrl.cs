@@ -256,14 +256,20 @@ namespace BirdRouter
                                 cpop = rman.pathctrl.FindClosestPointOnPath(campos);
                             }
                             var delta = cpop - campos + new Vector3(0, rman.home_height, 0);
+                            var nlink = rman.linkcloudctrl.GetLinkCount();
+                            var nnode = rman.linkcloudctrl.GetLinkCount();
+                            var lnkvis = rman.linkcloudctrl.linksvisible;
+                            var snode = rman.pathctrl.startnodename;
+                            var enode = rman.pathctrl.endnodename;
 
                             text += "Last Cmd:" + getLastVoiceCmd();
+                            text += "\nLinks:" + nlink + "  Nodes:" + nnode + "Visible:" + lnkvis;
+                            text += "\nStartNode:" + snode + "  EndNode:" + enode;
                             text += "\nrgoScale:" + rman.rgoScale.ToString("F2") + "   (" + rman.scaleIncFak + " Fak )";
                             text += "\nrgoRotate:" + rman.rgoRotate.ToString("F1") + "   (" + rman.rotationIncDeg + " deg )";
                             text += "\nrgoTrans:" + rman.rgoTranslate.ToString("F2") + "   (" + rman.tranlsationIncMeter + " M )";
                             text += "\nMC.pos:" + campos.ToString("F2") + " hh:" + rman.home_height;
-                            text += "\nMC.fwd:" + cfwd.ToString("F2");
-                            text += "\nCPOP:" + cpop.ToString("F2");
+                            text += "\nMC.fwd:" + cfwd.ToString("F2") + "  CPOP:" + cpop.ToString("F2");
                             text += "\nDelta:" + delta.ToString("F2" +" Error Correct:"+rman.autoerrorcorrect);
                             text += "\nVoice Total Keys:" + rman.keycount + " k1:" + rman.keyman.totalKeys1()+ " k2:"+rman.keyman.totalKeys2();
                         }

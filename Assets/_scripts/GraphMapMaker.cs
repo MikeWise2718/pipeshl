@@ -1094,8 +1094,8 @@ namespace GraphAlgos
                         break;
                     }
             }
-            var fname = "c:/transfer/" + Genmode.ToString() + ".txt";
-            SaveToFile(lc, fname);
+            //var fname = "c:/transfer/" + Genmode.ToString() + ".txt";
+            //SaveToFile(lc, fname);
         }
         public static void SaveToFile(LinkCloud lc, string fname)
         {

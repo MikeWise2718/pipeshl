@@ -272,6 +272,18 @@ namespace BirdRouter
             var lpt = lcld.PunchNewLinkPt(pp,newptname,deleteparentlink);
             return (lpt);
         }
+        public int GetLinkCount()
+        {
+            var lcld = getLinkCloud();
+            if (lcld == null) return -1;
+            return lcld.linkcount();
+        }
+        public int GetNodeCount()
+        {
+            var lcld = getLinkCloud();
+            if (lcld == null) return -1;
+            return lcld.nodecount();
+        }
         public LcNode GetLinkPt(int idx)
         {
             var lcld = getLinkCloud();

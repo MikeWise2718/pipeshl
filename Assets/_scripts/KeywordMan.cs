@@ -59,7 +59,7 @@ namespace BirdRouter
         void addStandardKeywords(Dictionary<string, System.Action> keywords)
         {
             keywords.Add("generate", () => { rman.CreateLinkCloud(); });
-            keywords.Add("regen", () => { rman.CreateLinkCloud(); }); // why does this one not work
+            keywords.Add("regen", () => { rman.Regen(); }); // why does this one not work
             keywords.Add("start router", () => { rman.CreateLinkCloud(); });
             keywords.Add("hide route", () => { rman.HideRoute(); });
             keywords.Add("show route", () => { rman.ShowRoute(); });
