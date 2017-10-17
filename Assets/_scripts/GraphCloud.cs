@@ -433,7 +433,7 @@ namespace GraphAlgos
                 throw new UnityException("GetNode: index out of range:" + n);
             }
             var pname = nodenamelist[n];
-            return (nodedict[pname]);
+            return nodedict[pname];
         }
         public LcNode GetNode(string lptname)
         {
@@ -441,7 +441,15 @@ namespace GraphAlgos
             {
                 throw new UnityException("GetNode: No link point with this name:" + lptname);
             }
-            return (nodedict[lptname]);
+            return nodedict[lptname];
+        }
+        public LcNode GetNodeOrNull(string lptname)
+        {
+            if (!isnodename(lptname))
+            {
+                return null;
+            }
+            return nodedict[lptname];
         }
         public LcNode GetRanLinkPt()
         {

@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using GraphAlgos;
+using System.Linq;
+using System.Reflection;
+using System.Runtime.Versioning;
 
 
 namespace BirdRouter
@@ -16,7 +19,7 @@ namespace BirdRouter
             this.rman = rman;
         }
 
-        public enum outModeE {  none=0,geninfo=1,trace=2,voiceCmdHistory=3,help=4 }
+        public enum outModeE {  none=0,geninfo=1,trace=2,voiceCmdHistory=3,version=4,help=5 }
         int noutModeE = 5; // typeof(outModeE).GetEnumValues(); // this should work?
 
         outModeE nextOutMode(outModeE oe)
@@ -272,6 +275,21 @@ namespace BirdRouter
                             text += "\nMC.fwd:" + cfwd.ToString("F2") + "  CPOP:" + cpop.ToString("F2");
                             text += "\nDelta:" + delta.ToString("F2" +" Error Correct:"+rman.autoerrorcorrect);
                             text += "\nVoice Total Keys:" + rman.keycount + " k1:" + rman.keyman.totalKeys1()+ " k2:"+rman.keyman.totalKeys2();
+#if NETFX_CORE
+                            text += "\nUniversal Windows Platform (NETFX_CORE defined)";
+#else
+                            text += "\n.NET Framework:" + System.Environment.Version;
+#endif
+                            // Following Won't compile in UWP
+                            //object[] list = Assembly.GetExecutingAssembly().GetCustomAttributes(true);
+                            //if (list.Length > 0)
+                            //{
+                            //    var alist = list.OfType<TargetFrameworkAttribute>();
+                            //    foreach (var att in alist)
+                            //    {
+                            //        text += "Framework:" + att.FrameworkName + "  DisplayName:" + att.FrameworkDisplayName;
+                            //    }
+                            //}
                         }
                         text += "\nUpdate:" + ucnt;
 
@@ -290,6 +308,13 @@ namespace BirdRouter
                 case outModeE.trace:
                     {
                         text = scrollThroughLinkedList(rman.loglist);
+                        break;
+                    }
+                case outModeE.version:
+                    {
+                        text = "";
+
+
                         break;
                     }
                 case outModeE.help:

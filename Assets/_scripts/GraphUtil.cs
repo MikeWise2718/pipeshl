@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
+using System.IO;
+using System.Net;
+
 
 /// <summary>
 /// GraphAlgos.cs  - This file contains static algoritms that we need in various places. 
@@ -148,5 +151,30 @@ namespace GraphAlgos
             string[] llar = llist.ToArray<string>();
             System.IO.File.WriteAllLines(filename, llar);
         }
+        static async void UploadBytes(string storageAccount, string container, string filebasename, string signature, byte[] data)
+        {
+
+            var tstr = String.Format("{0:yyyyMMddTHHmmssUTC}", DateTime.UtcNow);
+            var filename = filebasename + "-" + tstr;
+            var req = HttpWebRequest.Create(string.Format("http://{0}.blob.core.windows.net/{1}/{2}{3}", storageAccount, container, filename, signature));
+            req.Method = "PUT";
+            req.ContentType = "text/plain";
+            req.Headers["x-ms-blob-type"] = "BlockBlob";
+
+            using (Stream stream = await req.GetRequestStreamAsync())
+            {
+                stream.Write(data, 0, data.Length);
+            }
+            var response = await req.GetResponseAsync();
+        }
+        public static void writeLinkedListToAzureBlob(LinkedList<string> llist, string filebasename)
+        {
+            byte[] listdata = llist.SelectMany(s => System.Text.Encoding.ASCII.GetBytes(s + "\n")).ToArray();
+            string storageAccount = "birdblobs";
+            string sig = "?sv=2017-04-17&ss=bfqt&srt=sco&sp=rwlacp&se=2018-10-10T22:31:45Z&st=2017-10-17T14:31:45Z&spr=https,http&sig=VRaBZFF1hozPfn8Y%2BM9Fq0QBc4I5gWWRVD2sXPLQgvM%3D";
+            string container = "testcontainer1";
+            UploadBytes(storageAccount, container, filebasename, sig, listdata);
+        }
+
     }
 }

@@ -331,7 +331,7 @@ namespace BirdRouter
             home_rgoTranslate = rgoTranslate;
             home_height = Camera.main.transform.position.y;
 
-            var lpt = linkcloudctrl.GetLinkPt(newenodename);
+            var lpt = linkcloudctrl.GetNode(newenodename);
             if (lpt.wegtos.Count == 0) return;
             var wa = lpt.wegtos.First(); // get the first one, it should suffice
             var lnk = wa.link;
@@ -353,7 +353,7 @@ namespace BirdRouter
             CorrectAngleOnVectors(lnkdir, camfor);
 
             // Position
-            lpt = linkcloudctrl.GetLinkPt(newenodename);
+            lpt = linkcloudctrl.GetNode(newenodename);
             wa = lpt.wegtos.First();
             var wto1 = wa.toNode.pt;
             var wto1wc = rgo.transform.TransformPoint(wto1);
@@ -366,8 +366,20 @@ namespace BirdRouter
             var fname = this.logfilenameroot;
             fname += System.DateTime.Now.ToString("yyyyMMddTHHmmss")+".log";
             GraphUtil.writeLinkedListToFile(loglist, fname);
-            RouteMan.Log("Wrote " + loglist.Count + " lines to " + fname);
-            Debug.Log("Wrote " + loglist.Count + " lines to " + fname);
+            RouteMan.Log("Wrote " + loglist.Count + " lines to file " + fname);
+            Debug.Log("Wrote " + loglist.Count + " lines to file " + fname);
+        }
+        public void writeLogToAzureBlob()
+        {
+#if NETFX_CORE
+            var fname = "hlbirdlog";
+#else
+            var fname = "unbirdlog";
+#endif
+
+            GraphUtil.writeLinkedListToAzureBlob(loglist, fname);
+            RouteMan.Log("Wrote " + loglist.Count + " lines to blob " + fname);
+            Debug.Log("Wrote " + loglist.Count + " lines to blob " + fname);
         }
 
         public void NextGarnish()
@@ -738,9 +750,9 @@ namespace BirdRouter
             pathctrl.visible = true;
             RefreshRouteManGos();
         }
-        #endregion
+#endregion
 
-        #region birdcommands
+#region birdcommands
         public void StartBird()
         {
             if (birdctrl.isAtGoal())
@@ -810,7 +822,7 @@ namespace BirdRouter
         {
             birdctrl.AdjustBirdHeight( 1/1.25f );
         }
-        #endregion
+#endregion
 
         public void PropagatePath()
         {
@@ -819,7 +831,7 @@ namespace BirdRouter
             errmarkctrl.SetErrorMarkPath(path);
         }
 
-        #region pipecommands
+#region pipecommands
         public void Astar()
         {
             pathctrl.GenAstarPath();
@@ -848,7 +860,7 @@ namespace BirdRouter
             RouteMan.Log("loadVoiceKeysForAllRooms set to:" + loadVoiceKeysForAllRooms);
         }
 
-    #region status info commands
+#region status info commands
     public void NextInfoMode()
         {
             statusctrl.NextInfoMode();
@@ -866,7 +878,7 @@ namespace BirdRouter
         {
             statusctrl.scrollpage(n);
         }
-        #endregion
+#endregion
 
         public void SetRoomAction(RoomActionE action)
         {
@@ -952,7 +964,7 @@ namespace BirdRouter
             pathctrl.visible = !pathctrl.visible;
             pathctrl.RefreshGos();
         }
-        #endregion
+#endregion
 
         private List<string> highobjnames = new List<string>();
         private string highobactselname = "";
@@ -1017,7 +1029,7 @@ namespace BirdRouter
             highobactselname = "";
         }
 
-        #region gameobject management
+#region gameobject management
         public void RefreshRouteManGos()
         {
             // Cleanse the transform :)
@@ -1047,7 +1059,7 @@ namespace BirdRouter
             //restoreHighobs();
 
         }
-        #endregion
+#endregion
 
         public string startnodecolor = "green";
         public string endnodecolor = "red";

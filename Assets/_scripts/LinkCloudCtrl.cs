@@ -287,16 +287,22 @@ namespace BirdRouter
             if (lcld == null) return -1;
             return lcld.nodecount();
         }
-        public LcNode GetLinkPt(int idx)
+        public LcNode GetNode(int idx)
         {
             var lcld = getLinkCloud();
             var lpt = lcld.GetNode(idx);
             return (lpt);
         }
-        public LcNode GetLinkPt(string name)
+        public LcNode GetNode(string name)
         {
             var lcld = getLinkCloud();
             var lpt = lcld.GetNode(name);
+            return (lpt);
+        }
+        public LcNode GetNodeOrNull(string name)
+        {
+            var lcld = getLinkCloud();
+            var lpt = lcld.GetNodeOrNull(name);
             return (lpt);
         }
         public void RefreshGos()

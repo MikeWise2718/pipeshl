@@ -230,8 +230,8 @@ namespace BirdRouter
             {
                 LcNode snode = null; 
                 var prefstart = rman.linkcloudctrl.GetKeywordValue("DefStartNode");
-                snode = rman.linkcloudctrl.GetLinkPt(prefstart);
-                if (snode==null) snode = rman.linkcloudctrl.GetLinkPt(0);
+                snode = rman.linkcloudctrl.GetNodeOrNull(prefstart);
+                if (snode == null) snode = rman.linkcloudctrl.GetNode(0);
                 if (snode == null)
                 {
                     RouteMan.Log("Could not find start node in GenAstarPath");
@@ -243,8 +243,8 @@ namespace BirdRouter
             {
                 LcNode enode = null;
                 var prefstart = rman.linkcloudctrl.GetKeywordValue("DefEndNode");
-                enode = rman.linkcloudctrl.GetLinkPt(prefstart);
-                if (enode == null) enode = rman.linkcloudctrl.GetLinkPt(-1); // lastpoint
+                enode = rman.linkcloudctrl.GetNodeOrNull(prefstart);
+                if (enode == null) enode = rman.linkcloudctrl.GetNode(-1); // lastpoint
                 if (enode == null)
                 {
                     RouteMan.Log("Could not find end node in GenAstarPath");

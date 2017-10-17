@@ -197,7 +197,12 @@ namespace BirdRouter
         #endregion
 
         #region status
-        [MenuItem("--Stat/Write Log")]
+        [MenuItem("--Stat/Write Log to Blob")]
+        static void WriteLogToBlob()
+        {
+            rman.writeLogToAzureBlob();
+        }
+        [MenuItem("--Stat/Write Log To File")]
         static void WriteLog()
         {
             rman.writeLogToFile();

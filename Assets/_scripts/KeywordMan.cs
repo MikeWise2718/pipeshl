@@ -194,6 +194,9 @@ namespace BirdRouter
             keywords.Add("toggle floor plan", () => { rman.ToggleFloorPlan(); });
             keywords.Add("Error corect on", () => { rman.SetErrorCorrect(true); });
             keywords.Add("Error correct off", () => { rman.SetErrorCorrect(false); });
+
+            keywords.Add("Save Log", () => { rman.writeLogToAzureBlob(); });
+
         }
 
         // Use this for initialization
