@@ -1,5 +1,6 @@
 ﻿#define UNITYSIM
 using System;
+using diags = System.Diagnostics;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
@@ -68,7 +69,9 @@ namespace BirdRouter
         public int keycount = 0;
         public SpatialMapperMan smm = null;
 
-        public DateTime starttime = DateTime.Now;
+        static public DateTime starttime = DateTime.Now;
+        static diags.Stopwatch startStopWatch = new diags.Stopwatch();
+        static public float timeLastPosLogged = -10f;
 
 
         private Vector4 trans0;
@@ -85,6 +88,7 @@ namespace BirdRouter
             loglist = new LinkedList<string>();
             GraphUtil.loglist = loglist;
             RouteMan.Log("RouteMan starting time:" + starttime.ToUniversalTime());
+            startStopWatch.Start();
 
             // Create game object to hold ctrl inspectors
             rmango = GameObject.Find("RouteMan");
@@ -206,6 +210,8 @@ namespace BirdRouter
         {
             if (theone!=null)
             {
+                float elap = startStopWatch.ElapsedMilliseconds / 1000f;
+                msg = elap.ToString("F2") + " " + msg;
                 if (theone.loglist!=null)
                 {
                     theone.loglist.AddFirst(msg);
@@ -505,9 +511,17 @@ namespace BirdRouter
         {
             ScaleEverything(2.0f);
         }
+        public void Grow75()
+        {
+            ScaleEverything(2.0f);
+        }
         public void Shrink50()
         {
             ScaleEverything(0.5f);
+        }
+        public void Shrink75()
+        {
+            ScaleEverything(0.25f);
         }
         public void ScaleEverything(float sfak)
         {
@@ -813,7 +827,9 @@ namespace BirdRouter
         public void NextBirdForm()
         {
             birdctrl.NextForm();
-            birdctrl.RefreshGos();
+            birdctrl.RefreshGos(posttransform:true);
+            //birdctrl.NextForm();
+            //birdctrl.CreateBirdFormGos(posttransform:true);
         }
         public void FlyBirdHigher()
         {
@@ -1060,7 +1076,15 @@ namespace BirdRouter
             //restoreHighobs();
 
         }
-#endregion
+        public void GlobInvTransGo(GameObject go)
+        {
+            // We have to do it afterwards - that is the trick :)
+            var s = 1 / rgoScale;
+            go.transform.localScale = new Vector3(s,s,s);
+            go.transform.Rotate(0, -rgoRotate, 0);
+            go.transform.Translate(-rgoTranslate);
+        }
+        #endregion
 
         public string startnodecolor = "green";
         public string endnodecolor = "red";
@@ -1113,6 +1137,9 @@ namespace BirdRouter
         }
 
         static int updatesSinceRefresh = 0;
+        static bool logPosition = true;
+        static float logPosInterval = 1.0f;
+
         private void Update()
         {
             if (autoerrorcorrect)
@@ -1163,6 +1190,18 @@ namespace BirdRouter
                 clearhighobs();
             }
             updatesSinceRefresh += 1;
+            if (logPosition)
+            {
+                float curtime = startStopWatch.ElapsedMilliseconds / 1000;
+                if (curtime-timeLastPosLogged>=logPosInterval)
+                {
+                    var msg = " Pos:" + Camera.main.transform.position.ToString("F3") +
+                              " Fwd:" + Camera.main.transform.forward.ToString("F3") + 
+                              " Up:" + Camera.main.transform.up.ToString("F3");
+                    RouteMan.Log(msg);
+                    timeLastPosLogged = curtime;
+                }
+            }
 
         }
     }

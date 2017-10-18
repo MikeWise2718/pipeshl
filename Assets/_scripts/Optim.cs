@@ -77,7 +77,7 @@ namespace GraphAlgos
             lstpars = new float[npars];
             bstval = 9e30f;
             iter = -2;
-            var v = F(curpars);
+            //var v = F(curpars);
             status = optStatusE.initialized;
             randomSamplePhase();
         }

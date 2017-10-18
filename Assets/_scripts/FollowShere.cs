@@ -54,7 +54,7 @@ public class FollowShere : MonoBehaviour {
     {
         birdpos = bird.transform.position;
         var pdelt = bird.transform.position - transform.position;
-        var pdeltbef = pdelt.y;
+        //var pdeltbef = pdelt.y;
         pdelt.y = 0; // don't try and adjust the height
         var dist = Vector3.Distance(bird.transform.position, transform.position);
         //Debug.Log("Pdelt:" + pdeltbef);

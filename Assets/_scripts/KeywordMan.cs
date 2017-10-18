@@ -128,10 +128,12 @@ namespace BirdRouter
 
             keywords.Add("grow 10", () => { rman.Grow10(); });
             keywords.Add("grow 50", () => { rman.Grow50(); });
+            keywords.Add("grow 75", () => { rman.Grow75(); });
 
             keywords.Add("shrink 10", () => { rman.Shrink10(); });
             keywords.Add("shrink 50", () => { rman.Shrink50(); });
-            
+            keywords.Add("shrink 75", () => { rman.Shrink75(); });
+
             keywords.Add("gen b h o", () => { rman.GenBHO(); });
             keywords.Add("gen Redwest B 3", () => { rman.GenRedwb3(); });
             keywords.Add("gen Redwest Simple", () => { rman.GenRedwb3simple(); });

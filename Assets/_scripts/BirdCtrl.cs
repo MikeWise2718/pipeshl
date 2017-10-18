@@ -142,7 +142,16 @@ namespace BirdRouter
                 birdformgo.transform.position = rhs.position;
             }
         }
-        void CreateBirdFormGos()
+        void applyRgoTransform(Transform rhs)
+        {
+            if (rhs != null)
+            {
+                birdformgo.transform.localScale = rhs.localScale;
+                birdformgo.transform.rotation = rhs.rotation;
+                birdformgo.transform.position = rhs.position;
+            }
+        }
+        public void CreateBirdFormGos(bool posttransform=false)
         {
             Transform pvt = null;
             if (birdformgo!=null)
@@ -151,22 +160,30 @@ namespace BirdRouter
                 Destroy(birdformgo);
                 birdformgo = null;
             }
+            var shrink = 1f;
+            if (posttransform)
+            {
+                // todo: we should probably be translating and rotating too
+                //       so we need to test shifted scenes (like when we do error correction) 
+                //       with "change bird form"
+                shrink = rman.rgoScale;
+            }
             switch (birdform)
             {
+
                 case BirdFormE.sphere:
                     {
-                        var sphsize = 0.2f;
+                        var sphsize = shrink*0.2f;
                         birdformgo = GraphUtil.CreateMarkerSphere("sphere", Vector3.zero, size: sphsize, clr: "yellow");
                         break;
                     }
                 case BirdFormE.olive:
                     {
-                        var sphsize = 0.2f;
-                        birdformgo = GraphUtil.CreateMarkerSphere("sphere", Vector3.zero, size: sphsize, clr: "olive");
-                        birdformgo.transform.localScale = new Vector3(0.2f, 0.2f, 0.28f);
+                        birdformgo = GraphUtil.CreateMarkerSphere("sphere", Vector3.zero, size: 0.2f, clr: "olive");
+                        birdformgo.transform.localScale = shrink*(new Vector3(0.2f, 0.2f, 0.28f));
 
-                        var nosept = new Vector3(0, 0, 0.1f);
-                        var gonose = GraphUtil.CreateMarkerSphere("nose", nosept, size: 0.1f, clr: "red");
+                        var nosept = shrink*(new Vector3(0, 0, 0.1f));
+                        var gonose = GraphUtil.CreateMarkerSphere("nose", nosept, size: shrink*0.1f, clr: "red");
                         gonose.transform.parent = birdformgo.transform;
                         break;
                     }
@@ -175,7 +192,7 @@ namespace BirdRouter
                     {
                         var objPrefab = (GameObject)Resources.Load("hummingbird");
                         birdformgo = Instantiate(objPrefab) as GameObject;
-                        var s = 0.5e-3f;
+                        var s = shrink * 0.5e-3f;
                         var minscale = 0.1375f * s; // value experimentally discovered
                         if (s*rman.rgoScale < minscale)
                         {
@@ -189,7 +206,7 @@ namespace BirdRouter
                         var objPrefab = (GameObject)Resources.Load("teapot");
                         birdformgo = Instantiate(objPrefab) as GameObject;
                         birdformgo.GetComponent<Renderer>().material.SetColor("_Color", GraphUtil.getcolorbyname("chinawhite"));
-                        var s = 60.0f;
+                        var s = shrink*60.0f;
                         birdformgo.transform.localScale = new Vector3(s, s, s);
                         birdformgo.transform.Rotate(0, 90, 0);
                         break;
@@ -198,6 +215,14 @@ namespace BirdRouter
             var pt = birdgo.transform.position;
             var text = "Hummingbird\n" + pt;
             addFloatingText(birdgo, pt, text, "yellow");
+            if (posttransform)
+            {
+                //rman.GlobInvTransGo(birdformgo);
+                //var s = rman.rgoScale;
+                //birdformgo.transform.localScale = new Vector3(s, s, s);
+                //birdformgo.transform.Rotate(0, rman.rgoRotate, 0);
+                //birdformgo.transform.Translate(rman.rgoTranslate);
+            }
             birdformgo.transform.parent = birdgo.transform;
         }
       
@@ -221,14 +246,14 @@ namespace BirdRouter
             }
         }
 
-        void CreateBirdGos()
+        void CreateBirdGos(bool posttransform = false)
         {
             if (path == null) return;
 
             birdgo = new GameObject("Bird");
 
             birdgo.transform.parent = rman.rgo.transform;
-            CreateBirdFormGos();
+            CreateBirdFormGos(posttransform:posttransform);
 
             //RouteMan.Log("CreateBirdGos lp curpt:" + curpt);
         }
@@ -292,10 +317,10 @@ namespace BirdRouter
         {
             BirdFlyHeight *= factor;
         }
-        public void RefreshGos()
+        public void RefreshGos(bool posttransform = false)
         {
             DeleteBirdGos();
-            CreateBirdGos();
+            CreateBirdGos(posttransform:posttransform);
         }
         public void ResetBirdToStartOfPath()
         {

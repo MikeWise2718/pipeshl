@@ -529,6 +529,11 @@ namespace GraphAlgos
                 newlinkname0 = newlinkrootname + "0";
                 newlinkname1 = newlinkrootname + "1";
             }
+            else
+            {
+                newlinkname0 = lnk.name + "0";
+                newlinkname1 = lnk.name + "1";
+            }
             AddLink(newlinkname0, newlpt, lnk.node1);
             //GraphUtil.Log("Adding lnk:" + newlinkname0);
             AddLink(newlinkname1, newlpt, lnk.node2);
@@ -616,7 +621,7 @@ namespace GraphAlgos
                 throw new UnityException("StartStretchNode: Unknown node name:" + lptname);
             }
 
-            var lpt = GetNode(lptname);
+            GetNode(lptname);
 
         }
         public void DelNode(string nname)
