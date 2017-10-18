@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using GraphAlgos;
 
 namespace BirdRouter
@@ -8,7 +6,6 @@ namespace BirdRouter
 
     public class BirdCtrl : MonoBehaviour
     {
-
         RouteMan rman;
         public void setRouteMan(RouteMan rman)
         {
@@ -136,10 +133,21 @@ namespace BirdRouter
             tm.transform.localPosition = pt + new Vector3(0f, linecount * 0.25f, 0.0f);
             tm.color = GraphUtil.getcolorbyname(colorname);
         }
+        void assignTransform(Transform rhs)
+        {
+            if (rhs != null)
+            {
+                birdformgo.transform.localScale = rhs.localScale;
+                birdformgo.transform.rotation = rhs.rotation;
+                birdformgo.transform.position = rhs.position;
+            }
+        }
         void CreateBirdFormGos()
         {
+            Transform pvt = null;
             if (birdformgo!=null)
             {
+                pvt = birdformgo.transform;
                 Destroy(birdformgo);
                 birdformgo = null;
             }
@@ -147,12 +155,14 @@ namespace BirdRouter
             {
                 case BirdFormE.sphere:
                     {
-                        birdformgo = GraphUtil.CreateMarkerSphere("sphere", Vector3.zero, size: 0.2f, clr: "yellow");
+                        var sphsize = 0.2f;
+                        birdformgo = GraphUtil.CreateMarkerSphere("sphere", Vector3.zero, size: sphsize, clr: "yellow");
                         break;
                     }
                 case BirdFormE.olive:
                     {
-                        birdformgo = GraphUtil.CreateMarkerSphere("sphere", Vector3.zero, size: 0.2f, clr: "olive");
+                        var sphsize = 0.2f;
+                        birdformgo = GraphUtil.CreateMarkerSphere("sphere", Vector3.zero, size: sphsize, clr: "olive");
                         birdformgo.transform.localScale = new Vector3(0.2f, 0.2f, 0.28f);
 
                         var nosept = new Vector3(0, 0, 0.1f);
@@ -167,7 +177,7 @@ namespace BirdRouter
                         birdformgo = Instantiate(objPrefab) as GameObject;
                         var s = 0.5e-3f;
                         var minscale = 0.1375f * s; // value experimentally discovered
-                        if (s * rman.rgoScale < minscale)
+                        if (s*rman.rgoScale < minscale)
                         {
                             s = minscale / rman.rgoScale;
                         }

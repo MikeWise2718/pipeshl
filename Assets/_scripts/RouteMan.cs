@@ -1,12 +1,9 @@
 ﻿#define UNITYSIM
-
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Windows.Speech;
 using System.Linq;
 using GraphAlgos;
-using UnityEngine.VR;
 
 namespace BirdRouter
 {
@@ -51,6 +48,7 @@ namespace BirdRouter
 
         public bool autoerrorcorrect = false;
         private bool needrefresh = false;
+        private bool needpartialrefresh = false;
 
         public string routeDataDir = "d:/local/routedata";
 
@@ -70,6 +68,8 @@ namespace BirdRouter
         public int keycount = 0;
         public SpatialMapperMan smm = null;
 
+        public DateTime starttime = DateTime.Now;
+
 
         private Vector4 trans0;
         private Vector4 trans1;
@@ -84,6 +84,7 @@ namespace BirdRouter
             theone = this;
             loglist = new LinkedList<string>();
             GraphUtil.loglist = loglist;
+            RouteMan.Log("RouteMan starting time:" + starttime.ToUniversalTime());
 
             // Create game object to hold ctrl inspectors
             rmango = GameObject.Find("RouteMan");
@@ -116,7 +117,7 @@ namespace BirdRouter
             smm = FindObjectOfType<SpatialMapperMan>();
 
             DisableSpatialMapping();
-
+            RouteMan.Log("RouteMan initialized");
         }
 
         public void RequestRefresh()
@@ -1048,12 +1049,12 @@ namespace BirdRouter
             errmarkctrl.RefreshGos();
             floorplanctrl.RefreshGos();
 
-// We have to do it afterwards - that is the trick :)
+            // We have to do it afterwards - that is the trick :)
             rgo.transform.localScale = new Vector3(rgoScale, rgoScale, rgoScale);
             rgo.transform.Rotate(0, rgoRotate, 0);
             rgo.transform.Translate(rgoTranslate);
-            rgoTransformSetCount += 1;
 
+            rgoTransformSetCount += 1;
             RouteMan.Log("Refresh rgo - Scale:" + rgoScale + "  Rotate:" + rgoRotate + " Translate:" + rgoTranslate);
             keycount = keyman.totalKeywordCount();
             //restoreHighobs();
@@ -1145,6 +1146,11 @@ namespace BirdRouter
                 RefreshRouteManGos();
                 updatesSinceRefresh = 0;
                 needrefresh = false;
+            } else if (needpartialrefresh)
+            {
+                RefreshRouteManGos();
+                updatesSinceRefresh = 0;
+                needpartialrefresh = false;
             }
             if (updatesSinceRefresh==2)
             {
