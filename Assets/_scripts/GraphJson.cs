@@ -5,6 +5,7 @@ using System.Text;
 using System.Runtime.Serialization;
 using System.IO;
 using UnityEngine;
+using System.Reflection;
 
 namespace GraphAlgos
 {
@@ -56,18 +57,42 @@ namespace GraphAlgos
         }
 
     }
-   
+    [Serializable]
+    public class JlcVersion
+    {
+        public string FormatVersion = "0.1.1";
+        public string CreationTime = DateTime.Now.ToString("o");
+#if !NETFX_CORE
+        public string HostName = System.Environment.MachineName;
+        public string OsName = System.Environment.OSVersion.ToString();
+        public string DotNetFramework = System.Environment.Version.ToString();
+#endif
+        public string AssemblyVersion = "";
+        public string AssemblyBuildDate = "";
+
+        public JlcVersion()
+        {
+#if !NETFX_CORE
+            Version version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
+            AssemblyVersion = version.ToString();
+            DateTime buildDate = new DateTime(2000,1,1).AddDays(version.Build).AddSeconds(version.Revision*2);
+            AssemblyBuildDate = buildDate.ToString("o");
+#endif
+        }
+    }
+
     [Serializable]
     public class JsonLinkCloud
     {
+        public JlcVersion version;
         public graphtex floorplan;
         public JsonLcNodeList nodes;
         public JsonLcLinkList links;
  
         public JsonLinkCloud(graphtex gt)
         {
+            version = new JlcVersion(); 
            floorplan = new graphtex(gt);
-;
            nodes = new JsonLcNodeList();
            links = new JsonLcLinkList();
         }

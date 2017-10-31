@@ -871,7 +871,7 @@ namespace GraphAlgos
         {
             lc.gm.initmods();
             lc.gm.mod_x_fak = 1;
-            lc.gm.mod_x_off = 33.76f;
+            lc.gm.mod_x_off = 33.76f; // the coordinates of the front desk are now the origin
             lc.gm.mod_z_fak = 1;
             lc.gm.mod_z_off = -6.5f;
 
@@ -1053,8 +1053,17 @@ namespace GraphAlgos
                         break;
                     }
             }
-            //var fname = "c:/transfer/" + Genmode.ToString() + ".txt";
-            //SaveToFile(lc, fname);
+#if UNITY_EDITOR
+            try
+            {
+                var fname = "c:/transfer/" + Genmode.ToString() + ".json";
+                SaveToFile(lc, fname);
+            }
+            catch (Exception ex)
+            {
+                ex = ex; // we don't really care if it fails
+            }
+#endif
         }
         public static void SaveToFile(LinkCloud lc, string fname)
         {
@@ -1072,7 +1081,12 @@ namespace GraphAlgos
             var jsonlc = new JsonLinkCloud(lc.floorMan);
             foreach (var nname in lc.nodenamelist)
             {
+
                 var n = lc.GetNode(nname);
+                if (nnodes >= 26)
+                {
+                    int i = 2;
+                }
                 jsonlc.AddNode(n.name, n.pt);
                 nnodes += 1;
             }

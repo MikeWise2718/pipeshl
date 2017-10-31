@@ -229,6 +229,9 @@ namespace BirdRouter
 
             }
         }
+#if !NETFX_CORE
+        System.Version sysver = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
+#endif
         void setFloatingText()
         {
             var text = "";
@@ -272,7 +275,8 @@ namespace BirdRouter
 #if NETFX_CORE
                             text += "\nUniversal Windows Platform (NETFX_CORE defined)";
 #else
-                            text += "\n.NET Framework:" + System.Environment.Version;
+                            text += "\nHostName:" + System.Environment.MachineName + "\nBuildVersion:" + sysver.ToString();
+                            text += "\n.NET Framework:" + System.Environment.Version + " OS:" + System.Environment.OSVersion.ToString();
 #endif
                             // Following Won't compile in UWP
                             //object[] list = Assembly.GetExecutingAssembly().GetCustomAttributes(true);
